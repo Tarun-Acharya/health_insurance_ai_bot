@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Chatbot</title>
+    <!-- Link to CSS file -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div id="container">
+      <div id="upload-section">
+        <h2>Upload PDF</h2>
+        <form id="uploadForm">
+          <input type="file" id="fileInput" name="file" />
+          <button type="submit">Upload</button>
+        </form>
+        <p id="uploadStatus">No file uploaded.</p>
+      </div>
+
+      <div id="chat-section">
+        <h2>Chat</h2>
+        <form id="chatForm">
+          <input
+            type="text"
+            id="questionInput"
+            placeholder="Ask a question..."
+          />
+          <button type="submit">Send</button>
+        </form>
+        <div id="chatResponse">
+          <p id="responseText"></p>
+          <div id="loadingIndicator" class="hidden">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Link to JavaScript file -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+  </body>
+</html>
