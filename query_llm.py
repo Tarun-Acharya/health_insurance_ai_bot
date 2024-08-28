@@ -6,13 +6,13 @@ from llm_configs import get_embedding_function, get_model
 
 CHROMA_PATH = "chroma"
 PROMPT_TEMPLATE = """
-Answer the question based only on the following context:
+You are an AI helping a user to answer questions based on their health insurance plan based on the plan coverage data given below. Answer the question precisely based only on the following context:
 
 {context}
 
 ---
 
-Answer the question in detail based on the above context: {question}
+Answer the question precisely based on the above context: {question}
 """
 
 
@@ -39,7 +39,8 @@ def query_rag(query_text: str):
     vectordb = get_vector_db(embedding_function)
     # Search the DB.
     results = vectordb.similarity_search_with_score(query_text, k=3)
-    context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
+    context_text = "\n\n---\n\n".join([doc.page_content for doc, _scores in results])
+    # print(context_text)
 
     prompt_template = PromptTemplate.from_template(template=PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
@@ -48,7 +49,7 @@ def query_rag(query_text: str):
         {"role": "user", "content": prompt},
     ]
 
-    model = get_model("llama3-trained")
+    model = get_model("llama3")
 
     # tokenizer, model = get_model("llama3-trained")
     # inputs = tokenizer.apply_chat_template(

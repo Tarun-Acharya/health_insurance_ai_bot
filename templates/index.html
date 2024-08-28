@@ -13,16 +13,22 @@
   <body>
     <div id="container">
       <div id="upload-section">
-        <h2>Upload PDF</h2>
+        <h3>Health AI Bot</h3>
         <form id="uploadForm">
-          <input type="file" id="fileInput" name="file" />
-          <button type="submit">Upload</button>
+          <div class="file-wrapper">
+            <label for="fileInput" class="file-label">
+              <input type="file" id="fileInput" name="file" />
+              <span class="file-button">Browse</span>
+            </label>
+            <p id="uploadStatus">No file selected.</p>
+            <button type="submit">Upload</button>
+          </div>
         </form>
-        <p id="uploadStatus">No file uploaded.</p>
+        
       </div>
 
       <div id="chat-section">
-        <h2>Chat</h2>
+        <h3>Chat</h3>
         <form id="chatForm">
           <input
             type="text"
@@ -32,11 +38,13 @@
           <button type="submit">Send</button>
         </form>
         <div id="chatResponse">
-          <p id="responseText"></p>
-          <div id="loadingIndicator" class="hidden">
-            <div class="spinner"></div>
-            <p>Loading...</p>
-          </div>
+          <p id="responseText">
+            <!-- The loading indicator will now be part of the response text -->
+            <div id="loadingIndicator" class="hidden">
+              <div class="spinner"></div>
+              <p>Loading...</p>
+            </div>
+          </p>
         </div>
       </div>
     </div>

@@ -23,10 +23,10 @@ def main():
         clear_database()
 
     # Create (or update) the data store.
-    documents = load_documents()
-    chunks = split_documents(documents)
-    # print(chunks)
-    add_to_chroma(chunks)
+    # documents = load_documents()
+    # chunks = split_documents(documents)
+    # # print(chunks)
+    # add_to_chroma(chunks)
 
 
 def ingest_document_to_db(FILE_PATH):
@@ -42,23 +42,27 @@ def load_documents():
 
 
 def load_document(FILE_PATH):
-    print(FILE_PATH)
+    # print(FILE_PATH)
+    clear_database()
     document_loader = PyPDFLoader(FILE_PATH)
     return document_loader.load()
 
 
 def split_documents(documents: list[Document]):
+
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=100,
         length_function=len,
         is_separator_regex=False,
+        separators=["\n\n\n\n"],
     )
     return text_splitter.split_documents(documents)
 
 
 def add_to_chroma(chunks: list[Document]):
     # Load the existing database.
+
     db = Chroma(
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
     )
@@ -126,8 +130,10 @@ def list_documents_in_db():
 
 
 def clear_database():
-    if os.path.exists(CHROMA_PATH):
-        shutil.rmtree(CHROMA_PATH)
+    db = Chroma(
+        persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
+    )
+    db.delete_collection()
 
 
 if __name__ == "__main__":

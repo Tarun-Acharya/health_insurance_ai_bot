@@ -56,7 +56,7 @@ def upload_file():
 
         ingest_document_to_db(file_path)
 
-        return jsonify({"text": "Upload successful", "file_path": file_path})
+        return jsonify({"text": "Insurance plan uploaded", "file_path": file_path})
     except Exception as e:
         return jsonify({"error": str(e)})
 
