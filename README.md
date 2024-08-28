@@ -38,6 +38,4 @@ Special thanks to:
 - **Ollama** for local model hosting
 - **opm.gov** for valuable insights and support
 
-## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
